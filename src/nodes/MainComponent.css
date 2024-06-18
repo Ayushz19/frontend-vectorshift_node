@@ -1,0 +1,17 @@
+.addbtn
+{
+    cursor: pointer;
+    min-width: 80px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background-color: rgb(28, 37, 54);
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+
+}
+.react-flow__node-input{
+    background-color: blue;
+}
