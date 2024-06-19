@@ -12,6 +12,16 @@
     color: white;
 
 }
-.react-flow__node-input{
-    background-color: blue;
+.react-flow__node{
+    background-color:rgb(67,11,138);
+    color: white;
+    width: 100px;
+}
+.react-flow
+{
+    background-color: rgb(29,8,77);
+}
+.react-flow__node-default{
+    width: 200px;
+    height: 100px;
 }

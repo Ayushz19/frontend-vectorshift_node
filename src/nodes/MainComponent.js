@@ -10,7 +10,7 @@ import './MainComponent.css'
 
 const nodeTypes = {
   input: InputNode,
-  output: OutputNode,
+  output: OutputNode, 
 };
 
 const MainComponent = () => {
@@ -26,7 +26,7 @@ const MainComponent = () => {
     const id = getNodeID(type);
     const newNode = {
       id,
-      type,
+      type: 'textUpdater',
       data: { label: `${type.charAt(0).toUpperCase() + type.slice(1)} Node`, inputType: 'Text' },
       position: { x: Math.random() * 400, y: Math.random() * 400 },
     };
