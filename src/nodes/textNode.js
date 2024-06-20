@@ -1,60 +1,54 @@
 // textNode.js
 
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import { useState , useEffect , useRef } from "react";
+import { Handle, Position } from "reactflow";
 
 export const TextNode = ({ id, data }) => {
-  const [currText, setCurrText] = useState(data?.text || '{{input}}');
-
-
-
- 
-  const [inputWidth, setInputWidth] = useState(100); // Initial width
-  const [inputHeight, setInputHeight] = useState(30); // Initial height
+  const [currText, setCurrText] = useState(data?.text || "{{input}}");
+  const [textareaWidth, setTextareaWidth] = useState(100); // Initial width
+  const [textareaHeight, setTextareaHeight] = useState(30); // Initial height
+  const textareaRef = useRef(null);
 
   const handleTextChange = (e) => {
     const { value } = e.target;
     setCurrText(value);
-    
+    setTextareaHeight(textareaRef.current.scrollHeight);
     // Update the width based on the length of the text
-    setInputWidth(100 + value.length * 10);
-    
-    // Update the height based on the number of lines
-    setInputHeight(30 + (value.split('\n').length - 1) * 20);
-  }
+    const lines = value.split('\n');
+    const maxLength = Math.max(...lines.map(line => line.length));
+    setTextareaWidth(100 + maxLength * 8); // Adjust the multiplier for your font
+  };
 
-  // const handleTextChange = (e) => {
-  //   setCurrText(e.target.value);
-    
-  // };
-  
+  useEffect(() => {
+    // Adjust the initial height
+    setTextareaHeight(textareaRef.current.scrollHeight);
+  }, []);
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
+    <div style={{ width: 200, height: 80, border: "1px solid black" }}>
       <div>
         <span>Text</span>
       </div>
       <div>
         <label>
           Text:
-          <input 
-            type="text" 
-            value={currText} 
-            onChange={handleTextChange} 
+          <textarea
+          ref={textareaRef}
+            
+            value={currText}
+            onChange={handleTextChange}
             style={{
-              width: inputWidth,
-              height: inputHeight,
+              width: textareaWidth,
+              height: textareaHeight,
               boxSizing: 'border-box',
-              padding: '10px'
+              padding: '10px',
+              overflow: 'hidden',
+              resize: 'none' // Prevent manual resizing by the user
             }}
           />
         </label>
       </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-output`}
-      />
+      <Handle type="source" position={Position.Right} id={`${id}-output`} />
     </div>
   );
-}
+};
